@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-wasm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Build WASM
+        run: zig build wasm
+
+      - name: Upload WASM to release
+        run: gh release upload ${{ github.event.release.tag_name }} zig-out/calcHashAB.wasm
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
