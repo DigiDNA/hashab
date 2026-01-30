@@ -85,7 +85,7 @@ static inline uint8_t nibble_hi(uint8_t input) {
   return NIBBLE_HI_TABLE[input];
 }
 
-void calcHashAB(uint8_t target[static 57], uint8_t sha1[static 20], uint8_t uuid[static 8], const uint8_t rnd_bytes[static 23]) {
+void calcHashAB(uint8_t target[57], uint8_t sha1[20], uint8_t uuid[8], const uint8_t rnd_bytes[23]) {
   uint32_t perm_indices[55];
   uint8_t expanded_buffer[190];
   uint8_t round_key[176];
